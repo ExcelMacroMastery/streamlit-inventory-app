@@ -1,0 +1,43 @@
+Date : 2026-06-28 13:10:53
+Directory : c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul
+Total : 14 files,  934 codes, 41 comments, 161 blanks, all 1136 lines
+
+Languages
++-------------------------+------------+------------+------------+------------+------------+
+| language                | files      | code       | comment    | blank      | total      |
++-------------------------+------------+------------+------------+------------+------------+
+| Python                  |         13 |        916 |         41 |        161 |      1,118 |
+| sqlite3-editor-database |          1 |         18 |          0 |          0 |         18 |
++-------------------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                   | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                      |         14 |        934 |         41 |        161 |      1,136 |
+| . (Files)                                                                                                                              |          3 |         28 |          0 |          3 |         31 |
+| business                                                                                                                               |          1 |         13 |          1 |          2 |         16 |
+| data                                                                                                                                   |          4 |        127 |          7 |         33 |        167 |
+| ui                                                                                                                                     |          6 |        766 |         33 |        123 |        922 |
++----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------------------------------+-------------------------+------------+------------+------------+------------+
+| filename                                                                                                                               | language                | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------------+-------------------------+------------+------------+------------+------------+
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\business\models.py      | Python                  |         13 |          1 |          2 |         16 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\constants.py            | Python                  |         10 |          0 |          2 |         12 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\data\database.py        | Python                  |         14 |          0 |          4 |         18 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\data\products_db.py     | Python                  |         37 |          4 |         10 |         51 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\data\products_schema.py | Python                  |         16 |          0 |          1 |         17 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\data\schema.py          | Python                  |         60 |          3 |         18 |         81 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\inventory.sqlite        | sqlite3-editor-database |         18 |          0 |          0 |         18 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\main.py                 | Python                  |          0 |          0 |          1 |          1 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\ui\DELETE ME.py         | Python                  |          0 |          0 |          1 |          1 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\ui\dashboard OLD.py     | Python                  |        284 |          3 |         41 |        328 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\ui\dashboard.py         | Python                  |        190 |         12 |         29 |        231 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\ui\forms.py             | Python                  |        121 |          7 |         22 |        150 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\ui\forms_OLD.py         | Python                  |        113 |          7 |         18 |        138 |
+| c:\Users\paulk\Dropbox\Excel Macro Mastery\YouTube\Associated files\2026\2026-06-20 Python Inventory\Code Paul\ui\main_window.py       | Python                  |         58 |          4 |         12 |         74 |
+| Total                                                                                                                                  |                         |        934 |         41 |        161 |      1,136 |
++----------------------------------------------------------------------------------------------------------------------------------------+-------------------------+------------+------------+------------+------------+
