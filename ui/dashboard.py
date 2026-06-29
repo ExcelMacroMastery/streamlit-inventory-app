@@ -4,8 +4,10 @@ import data.products_db as products_db
 from constants import GridDefaults
 from data.products_schema import PRODUCTS
 from data.schema import TableSchema
-from business.models import compute_status, to_float
-from forms import draw_add_form, draw_edit_form
+from business.models import compute_status
+from add_forms import draw_add_form
+from edit_forms import draw_edit_form
+from import_forms import draw_import_form
 
 from st_aggrid import GridOptionsBuilder, AgGrid, JsCode, GridUpdateMode, DataReturnMode
 
@@ -13,51 +15,11 @@ custom_css = {
     ".ag-cell": {"font-size": "14px !important"},
     ".ag-header-cell-text": {"font-size": "14px !important", "font-weight": "600 !important"},
 }
-
-""" GRID_CONFIG = {
-    "id":       {"hide": True},
-    "name":     {"label": "Name",     "width": 130},
-    "sku":      {"label": "SKU",      "width": 100},
-    "category": {"label": "Category", "width": 100},
-    "quantity": {"label": "Quantity", "width": 65},
-    "price":    {"label": "Price",    "width": 65, "format": "currency"},
-} """
-
+"""
 @st.dialog("Import CSV")
 def draw_import_form():
     st.markdown("Upload a CSV file with columns: **name, sku, category, quantity, price**")
 
-    if False:
-        st.markdown("""
-        <style>
-            /* File uploader outer container */
-            div[data-testid="stFileUploader"] {
-                background-color: #f0f2f6 !important;
-                padding: 10px;
-                border-radius: 6px;
-            }
-                    
-            /* Force hover color */
-            div[data-testid="stFileUploader"] button:hover {
-                background-color: #b5b9c0 !important;
-                color: black !important;
-            }                
-
-            /* The drag-and-drop area */
-            div[data-testid="stFileUploader"] section {
-                background-color: #f0f2f6 !important;
-                border-radius: 6px;
-            }
-
-            /* The "Browse files" button */
-            div[data-testid="stFileUploader"] button {
-                background-color: #d0d4db !important;
-                color: black !important;
-                border: none !important;
-            }
-        </style>
-        """, unsafe_allow_html=True)
-    
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv", key="csv_uploader")
 
     if uploaded_file is not None:
@@ -96,6 +58,8 @@ def draw_import_form():
             st.session_state.importing = False
             st.session_state.grid_key += 1
             st.rerun()
+"""
+            
 
 def draw_grid(df: pd.DataFrame, products: TableSchema):
     #df = compute_status(db.load_products_data())   # ← Status derived here
@@ -201,7 +165,6 @@ def draw_metrics(df: pd.DataFrame):
     total_value = (df["price"] * df["quantity"]).sum()
     st.metric("Estimated Inventory Value", f"${total_value:,.2f}")
 
-    # Buttons above the grid
 def draw_action_buttons():    
     btn_col1, btn_col2, _ = st.columns([1, 1, 6])
     with btn_col1:
@@ -212,7 +175,6 @@ def draw_action_buttons():
             st.session_state.importing = True
 
 def render():
-
     df = compute_status(products_db.load_products_data())   # ← metrics also use derived Status
 
     draw_metrics(df)

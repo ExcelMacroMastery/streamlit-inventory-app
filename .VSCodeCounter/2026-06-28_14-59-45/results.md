@@ -1,26 +1,26 @@
 # Summary
 
-Date : 2026-06-28 13:10:53
+Date : 2026-06-28 14:59:45
 
 Directory c:\\Users\\paulk\\Dropbox\\Excel Macro Mastery\\YouTube\\Associated files\\2026\\2026-06-20 Python Inventory\\Code Paul
 
-Total : 14 files,  934 codes, 41 comments, 161 blanks, all 1136 lines
+Total : 12 files,  524 codes, 68 comments, 107 blanks, all 699 lines
 
 Summary / [Details](details.md) / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
 
 ## Languages
 | language | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| Python | 13 | 916 | 41 | 161 | 1,118 |
-| sqlite3-editor-database | 1 | 18 | 0 | 0 | 18 |
+| Python | 11 | 504 | 68 | 106 | 678 |
+| sqlite3-editor-database | 1 | 20 | 0 | 1 | 21 |
 
 ## Directories
 | path | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| . | 14 | 934 | 41 | 161 | 1,136 |
-| . (Files) | 3 | 28 | 0 | 3 | 31 |
+| . | 12 | 524 | 68 | 107 | 699 |
+| . (Files) | 3 | 30 | 0 | 4 | 34 |
 | business | 1 | 13 | 1 | 2 | 16 |
 | data | 4 | 127 | 7 | 33 | 167 |
-| ui | 6 | 766 | 33 | 123 | 922 |
+| ui | 4 | 354 | 60 | 68 | 482 |
 
 Summary / [Details](details.md) / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
