@@ -9,10 +9,9 @@ def close_add_form():
     st.session_state.grid_key += 1
     st.rerun()
 
-
 @st.dialog("Add Item")
 def draw_add_form():
-    row = draw_form({})
+    row = draw_form(PRODUCTS,{})
 
     save_col, cancel_col = st.columns(2)
     with save_col:

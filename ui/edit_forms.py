@@ -56,17 +56,11 @@ def draw_delete_confirmation(existing_row: dict):
 @st.dialog("Edit Item")
 def draw_edit_form(existing_row: dict):
 
-    row = draw_form(existing_row)
+    row = draw_form(PRODUCTS,existing_row)
 
     draw_edit_buttons(row, existing_row)
 
     if st.session_state.get("confirm_delete"):
         draw_delete_confirmation(existing_row) 
 
-@st.dialog("Edit Item")
-def draw_edit_form(existing_row: dict):
-
-    row = draw_form(existing_row)
-
-    draw_edit_buttons(row, existing_row)
 

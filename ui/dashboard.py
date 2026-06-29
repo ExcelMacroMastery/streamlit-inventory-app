@@ -14,62 +14,21 @@ from st_aggrid import GridOptionsBuilder, AgGrid, JsCode, GridUpdateMode, DataRe
 custom_css = {
     ".ag-cell": {"font-size": "14px !important"},
     ".ag-header-cell-text": {"font-size": "14px !important", "font-weight": "600 !important"},
-}
-"""
-@st.dialog("Import CSV")
-def draw_import_form():
-    st.markdown("Upload a CSV file with columns: **name, sku, category, quantity, price**")
-
-    uploaded_file = st.file_uploader("Choose a CSV file", type="csv", key="csv_uploader")
-
-    if uploaded_file is not None:
-        try:
-            import_df = pd.read_csv(uploaded_file)
-
-            required_cols = ["name", "sku", "category", "quantity", "price"]
-            missing = set(required_cols) - set(import_df.columns)
-            if missing:
-                st.error(f"Missing required columns: {', '.join(missing)}")
-            else:
-                import_df["price"] = import_df["price"].apply(to_float)
-                import_df["quantity"] = import_df["quantity"].astype(int)
-                preview_df = compute_status(import_df[list(required_cols)])
-                st.dataframe(preview_df, width="stretch", hide_index=True)
-                st.caption(f"{len(import_df)} row(s) ready to import")
-
-                save_col, cancel_col = st.columns(2)
-                with save_col:
-                    if st.button("Import", type="primary", width="stretch", key="import_save"):
-                        products_db.add_products_bulk(import_df[required_cols])
-                        products_db.load_products_data.clear()
-                        st.session_state.importing = False
-                        st.session_state.grid_key += 1
-                        st.success(f"Imported {len(import_df)} item(s)!")
-                        st.rerun()
-                with cancel_col:
-                    if st.button("Cancel", width="stretch", key="import_cancel"):
-                        st.session_state.importing = False
-                        st.session_state.grid_key += 1
-                        st.rerun()
-        except Exception as e:
-            st.error(f"Failed to parse CSV: {e}")
-    else:
-        if st.button("Cancel", width="stretch", key="import_cancel_empty"):
-            st.session_state.importing = False
-            st.session_state.grid_key += 1
-            st.rerun()
-"""
-            
+}     
 
 def draw_grid(df: pd.DataFrame, products: TableSchema):
     #df = compute_status(db.load_products_data())   # ← Status derived here
 
     grid_builder = GridOptionsBuilder.from_dataframe(df)
-    grid_builder.configure_pagination(paginationAutoPageSize=False,paginationPageSize=GridDefaults.ROWS_PER_PAGE)
+    #grid_builder.configure_pagination(paginationAutoPageSize=False,paginationPageSize=GridDefaults.ROWS_PER_PAGE)
     grid_builder.configure_grid_options(
         rowHeight=GridDefaults.ROW_HEIGHT,
         headerHeight=GridDefaults.HEADER_HEIGHT, #44
         getRowID ="params.data.id"
+        """         pagination=True,
+        paginationPageSize=GridDefaults.ROWS_PER_PAGE,
+        paginationAutoPageSize=False,
+        suppressScrollOnNewData=True,    """
     )
     grid_builder.configure_selection(
         selection_mode="single",
@@ -94,6 +53,13 @@ def draw_grid(df: pd.DataFrame, products: TableSchema):
                 type=["numericColumn"],
                 valueFormatter=f"data.{col.name}.toLocaleString('en-US', {{style: 'currency', currency: 'USD'}})",
             )
+        elif col.widget == "text":
+            grid_builder.configure_column(
+                col.name,
+                headerName=col.label,
+                width=col.width,
+                type=["textColumn"],
+            )            
         else:
             grid_builder.configure_column(
                 col.name,
@@ -135,7 +101,7 @@ def draw_grid(df: pd.DataFrame, products: TableSchema):
         width=90,
         cellStyle={"display": "flex", "alignItems": "center", "justifyContent": "center", "paddingTop": "4px"},
     )
-
+    
     grid_options = grid_builder.build()
     grid_response = AgGrid(
         data=df,

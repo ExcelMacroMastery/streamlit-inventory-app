@@ -1,6 +1,6 @@
 # Diff Details
 
-Date : 2026-06-28 14:59:45
+Date : 2026-06-28 22:08:03
 
 Directory c:\\Users\\paulk\\Dropbox\\Excel Macro Mastery\\YouTube\\Associated files\\2026\\2026-06-20 Python Inventory\\Code Paul
 
