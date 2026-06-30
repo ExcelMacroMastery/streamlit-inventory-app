@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import data.products_db as products_db
 from data.products_schema import PRODUCTS
-from business.models import compute_status, to_float
+from business.models import compute_bucketed_column, to_float
 
 # In dashboard.py
 
@@ -43,7 +43,15 @@ def draw_import_form():
                 elif col.widget == "number":
                     import_df[col.name] = import_df[col.name].astype(int)
 
-            preview_df = compute_status(import_df[required_cols])
+            #preview_df = compute_status(import_df[required_cols])
+            preview_df = compute_bucketed_column(
+                    products_db.load_data(),
+                    source_col="quantity",
+                    bins=[-1, 0, 10, float("inf")],
+                    labels=["Out of Stock", "Low Stock", "In Stock"],
+                    output_col="status"
+            )
+
             st.dataframe(preview_df, width="stretch", hide_index=True)
             st.caption(f"{len(import_df)} row(s) ready to import")
 

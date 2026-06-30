@@ -1,15 +1,13 @@
 import pandas as pd
 import streamlit as st
 import data.products_db as products_db
-#from constants import GridDefaults
 from data.products_schema import PRODUCTS
-#from data.schema import TableSchema
-from business.models import compute_status
+from business.models import compute_bucketed_column
 from ui.add_forms import draw_add_form
 from ui.edit_forms import draw_edit_form
 from ui.import_forms import draw_import_form
-from ui.grid_builder import draw_grid
-#from st_aggrid import GridOptionsBuilder, AgGrid, JsCode, GridUpdateMode, DataReturnMode
+from ui.grid_builder import draw_grid, DEFAULT_STATUS_STYLES
+
 
 
 def draw_metrics(df: pd.DataFrame):
@@ -36,19 +34,26 @@ def draw_action_buttons():
 def render():
     st.header("Products")
     
-    df = compute_status(products_db.load_data())   # ← metrics also use derived Status
-
+    #df = compute_status(products_db.load_data())   # ← metrics also use derived Status
+    df = compute_bucketed_column(
+            products_db.load_data(),
+            source_col="quantity",
+            bins=[-1, 0, 10, float("inf")],
+            labels=["Out of Stock", "Low Stock", "In Stock"],
+            output_col="status"
+    )
+    
     draw_metrics(df)
 
     draw_action_buttons()
 
-    draw_grid(df, PRODUCTS)
+    draw_grid(df, PRODUCTS, badge_column="status", badge_styles=DEFAULT_STATUS_STYLES)
 
     if st.session_state.get("adding_row"):
         draw_add_form(PRODUCTS, products_db)
 
-    if st.session_state.get("importing"):      
-        draw_import_form()
-
     if st.session_state.get("editing_row") is not None:
         draw_edit_form(PRODUCTS, products_db, st.session_state.editing_row)
+    
+    if st.session_state.get("importing"):      
+        draw_import_form()

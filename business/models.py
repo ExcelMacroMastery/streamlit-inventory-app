@@ -1,12 +1,28 @@
 import pandas as pd
 
-def compute_status(df: pd.DataFrame) -> pd.DataFrame:
-    """Derive Status from Quantity. Thresholds: 0 = Out of Stock, 1-10 = Low Stock, 11+ = In Stock."""
+def compute_bucketed_column(
+    df: pd.DataFrame,
+    source_col: str,
+    bins: list[float],
+    labels: list[str],
+    output_col: str = "status",
+) -> pd.DataFrame:
+    """Derive a categorical column from a numeric column using bin thresholds.
+
+    Example (original quantity → status use case):
+        compute_bucketed_column(
+            df,
+            source_col="quantity",
+            bins=[-1, 0, 10, float("inf")],
+            labels=["Out of Stock", "Low Stock", "In Stock"],
+            output_col="status",
+        )
+    """
     df = df.copy()
-    df["status"] = pd.cut(
-        df["quantity"],
-        bins=[-1, 0, 10, float("inf")],
-        labels=["Out of Stock", "Low Stock", "In Stock"]
+    df[output_col] = pd.cut(
+        df[source_col],
+        bins=bins,
+        labels=labels,
     ).astype(str)
     return df
 

@@ -1,7 +1,6 @@
 import streamlit as st
+import importlib
 from streamlit_option_menu import option_menu
-import ui_pages.products_page as pp 
-import ui_pages.sales_order_page as so
 from constants import AppColours
 
 st.set_page_config(layout="wide")
@@ -16,38 +15,40 @@ st.session_state.setdefault("selected_page", None)
 
 st.markdown("""
 <style>
-/* Sidebar background only */
 [data-testid="stSidebar"] {
     background-color: #182235 !important;
-}           
-                       
+}
 </style>
 """, unsafe_allow_html=True)
 
-def select_page(page):
-    #st.session_state._callback_called = True    
-    if page == "Products":
-        pp.render()
-    elif page == "Sales Orders":
-        so.render()
-    else:
-        st.write(f"Selection changed to {page}")    
+PAGES = [
+    {"name": "Products",     "icon": "house",        "module": "ui_pages.products_page"},
+    {"name": "Customers",    "icon": "list-task",     "module": "ui_pages.customer_page"},
+    {"name": "Sales Orders", "icon": "cloud-upload", "module": "ui_pages.sales_order_page"},    
+    {"name": "Reports",      "icon": "list-task",     "module": None},
+    {"name": "Settings",     "icon": "gear",          "module": None},
+]
 
-# this will automatically refresh page
+PAGE_MODULES = {p["name"]: p["module"] for p in PAGES}
+
+
+def select_page(page):
+    module_path = PAGE_MODULES.get(page)
+    if module_path:
+        page_module = importlib.import_module(module_path)
+        page_module.render()
+    else:
+        st.write(f"Selection changed to {page}")
+
+
 def on_change_menu_a(key):
     pass
 
-PAGES = [
-    {"name": "Sales Orders",     "icon": "cloud-upload"},
-    {"name": "Products", "icon": "house"},
-    {"name": "Reports",   "icon": "list-task"},
-    {"name": "Settings",  "icon": "gear"},
-]
 
 SIDEBAR_STYLES = {
     "container":         {
-                            "padding": "0!important", 
-                            "background-color": AppColours.SIDEBAR_BG, 
+                            "padding": "0!important",
+                            "background-color": AppColours.SIDEBAR_BG,
                             "border-radius": "0!important",
                             "overflow": "hidden",
                         },
@@ -70,6 +71,3 @@ with st.sidebar:
     )
 
 select_page(st.session_state.selected_page)
-
-# Reset for next rerun
-

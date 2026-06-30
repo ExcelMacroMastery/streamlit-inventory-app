@@ -10,8 +10,9 @@ def draw_form(schema: TableSchema, row: dict) -> dict:
     """Renders form fields and returns the current values. Used by both add and edit dialogs."""
     updated = {}
     col1, col2 = st.columns(2)
-    cols = [c for c in PRODUCTS.columns if c.widget != "hidden"]
-
+    #cols = [c for c in PRODUCTS.columns if c.widget != "hidden"]
+    cols = [c for c in schema.columns if c.widget != "hidden"]
+    
     for i, col in enumerate(cols):
         with col1 if i % 2 == 0 else col2:
             if col.widget == "text":
@@ -19,7 +20,7 @@ def draw_form(schema: TableSchema, row: dict) -> dict:
             elif col.widget == "number":
                 updated[col.name] = st.number_input(col.name.title(), value=int(row.get(col.name, col.default)), step=1, key=f"form_{col.name}")
             elif col.widget == "select":
-                options = PRODUCTS.categories[col.name]
+                options = schema.categories[col.name]
                 current = row.get(col.name, col.default)
                 updated[col.name] = st.selectbox(col.name.title(), options, index=options.index(current), key=f"form_{col.name}")
             elif col.widget == "currency":
