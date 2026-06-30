@@ -13,8 +13,8 @@ def close_import_form():
 
 def save_import(import_df: pd.DataFrame):
     required_cols = [c.name for c in PRODUCTS.columns if c.name != PRODUCTS.primary_key]
-    products_db.add_products_bulk(import_df[required_cols])
-    products_db.load_products_data.clear()
+    products_db.add_bulk(import_df[required_cols])
+    products_db.load_data.clear()
     close_import_form()
 
 @st.dialog("Import CSV")

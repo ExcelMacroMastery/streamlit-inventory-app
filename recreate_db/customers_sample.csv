@@ -1,0 +1,4 @@
+id,name,email,phone,address
+1,Alice Johnson,alice.johnson@example.com,+1-555-0198,"123 Maple St, Springfield, IL 62701"
+2,Bob Smith,bob.smith@example.com,+1-555-0143,"456 Oak Rd, Metropolis, NY 10001"
+3,Charlie Brown,charlie.brown@example.com,+1-555-0177,"789 Pine Ave, Gotham, NJ 07001"

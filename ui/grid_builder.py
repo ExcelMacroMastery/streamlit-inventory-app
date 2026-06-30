@@ -1,14 +1,7 @@
 import pandas as pd
 import streamlit as st
-import data.products_db as products_db
 from constants import GridDefaults
-from data.products_schema import PRODUCTS
 from data.schema import TableSchema
-from business.models import compute_status
-from add_forms import draw_add_form
-from edit_forms import draw_edit_form
-from import_forms import draw_import_form
-
 from st_aggrid import GridOptionsBuilder, AgGrid, JsCode, GridUpdateMode, DataReturnMode
 
 custom_css = {
@@ -17,18 +10,13 @@ custom_css = {
 }     
 
 def draw_grid(df: pd.DataFrame, products: TableSchema):
-    #df = compute_status(db.load_products_data())   # ← Status derived here
 
     grid_builder = GridOptionsBuilder.from_dataframe(df)
-    #grid_builder.configure_pagination(paginationAutoPageSize=False,paginationPageSize=GridDefaults.ROWS_PER_PAGE)
+    grid_builder.configure_pagination(paginationAutoPageSize=False,paginationPageSize=GridDefaults.ROWS_PER_PAGE)
     grid_builder.configure_grid_options(
         rowHeight=GridDefaults.ROW_HEIGHT,
         headerHeight=GridDefaults.HEADER_HEIGHT, #44
         getRowID ="params.data.id"
-        """         pagination=True,
-        paginationPageSize=GridDefaults.ROWS_PER_PAGE,
-        paginationAutoPageSize=False,
-        suppressScrollOnNewData=True,    """
     )
     grid_builder.configure_selection(
         selection_mode="single",
@@ -52,14 +40,7 @@ def draw_grid(df: pd.DataFrame, products: TableSchema):
                 width=col.width,
                 type=["numericColumn"],
                 valueFormatter=f"data.{col.name}.toLocaleString('en-US', {{style: 'currency', currency: 'USD'}})",
-            )
-        elif col.widget == "text":
-            grid_builder.configure_column(
-                col.name,
-                headerName=col.label,
-                width=col.width,
-                type=["textColumn"],
-            )            
+            )        
         else:
             grid_builder.configure_column(
                 col.name,
@@ -117,43 +98,3 @@ def draw_grid(df: pd.DataFrame, products: TableSchema):
         selected_row_data = grid_response["selected_rows"].iloc[0].to_dict()
         st.session_state.editing_row = selected_row_data
         st.rerun()
-
-def draw_metrics(df: pd.DataFrame):
-
-    st.header("Dashboard")
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Total SKUs", len(df))
-    c2.metric("Total Units in Stock", df["quantity"].sum())
-    c3.metric("Low Stock Items", (df["status"] == "Low Stock").sum())
-    c4.metric("Out of Stock", (df["status"] == "Out of Stock").sum())
-
-    st.write("")
-    total_value = (df["price"] * df["quantity"]).sum()
-    st.metric("Estimated Inventory Value", f"${total_value:,.2f}")
-
-def draw_action_buttons():    
-    btn_col1, btn_col2, _ = st.columns([1, 1, 6])
-    with btn_col1:
-        if st.button("➕ Add Item", type="primary"):
-            st.session_state.adding_product = True
-    with btn_col2:
-        if st.button("📥 Import CSV"):          
-            st.session_state.importing = True
-
-def render():
-    df = compute_status(products_db.load_products_data())   # ← metrics also use derived Status
-
-    draw_metrics(df)
-
-    draw_action_buttons()
-
-    draw_grid(df, PRODUCTS)
-
-    if st.session_state.get("adding_product"):
-        draw_add_form()
-
-    if st.session_state.get("importing"):      
-        draw_import_form()
-
-    if st.session_state.get("editing_row") is not None:
-        draw_edit_form(st.session_state.editing_row)
