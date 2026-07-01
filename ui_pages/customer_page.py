@@ -3,10 +3,14 @@ import streamlit as st
 import data.customers_db as customers_db
 from data.customers_schema import CUSTOMERS
 from business.models import compute_bucketed_column
-from ui.add_forms import draw_add_form
-from ui.edit_forms import draw_edit_form
+#from ui.add_forms import draw_add_form
+#from ui.edit_forms import draw_edit_form
+#from ui.grid_builder import draw_grid, DEFAULT_STATUS_STYLES
+from streamlit_crud import draw_add_form 
+from streamlit_crud import draw_edit_form
+from streamlit_crud import draw_grid, DEFAULT_STATUS_STYLES
 from ui.import_forms import draw_import_form
-from ui.grid_builder import draw_grid, DEFAULT_STATUS_STYLES
+
 
 def draw_action_buttons():    
     btn_col1, _ = st.columns([1, 1])

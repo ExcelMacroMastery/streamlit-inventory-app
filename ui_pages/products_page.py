@@ -3,11 +3,11 @@ import streamlit as st
 import data.products_db as products_db
 from data.products_schema import PRODUCTS
 from business.models import compute_bucketed_column
-from ui.add_forms import draw_add_form
-from ui.edit_forms import draw_edit_form
-from ui.import_forms import draw_import_form
-from ui.grid_builder import draw_grid, DEFAULT_STATUS_STYLES
 
+from streamlit_crud import draw_add_form
+from streamlit_crud import draw_edit_form
+from streamlit_crud import draw_grid, DEFAULT_STATUS_STYLES
+from ui.import_forms import draw_import_form
 
 
 def draw_metrics(df: pd.DataFrame):
@@ -50,10 +50,23 @@ def render():
     draw_grid(df, PRODUCTS, badge_column="status", badge_styles=DEFAULT_STATUS_STYLES)
 
     if st.session_state.get("adding_row"):
-        draw_add_form(PRODUCTS, products_db)
+        draw_add_form(
+            schema=PRODUCTS,
+            add_row=products_db.add_row,
+            clear_cache=products_db.load_data.clear,
+            title="Add Product",
+        )       
 
     if st.session_state.get("editing_row") is not None:
-        draw_edit_form(PRODUCTS, products_db, st.session_state.editing_row)
+        draw_edit_form(
+            schema=PRODUCTS,
+            update_row=products_db.update_row,
+            delete_row=products_db.delete_row,
+            clear_cache=products_db.load_data.clear,
+            existing_row=st.session_state.editing_row,
+            title="Edit Product",
+        )
+
     
     if st.session_state.get("importing"):      
         draw_import_form()

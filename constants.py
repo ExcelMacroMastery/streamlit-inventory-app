@@ -9,3 +9,5 @@ class AppColours:
     SIDEBAR_BG = "#182235"
     SIDEBAR_HOVER = "#26344d"
     SIDEBAR_SELECTED = "#26344d"
+
+DB_PATH = "inventory.sqlite"

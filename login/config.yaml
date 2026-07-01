@@ -1,0 +1,16 @@
+credentials:
+  usernames:
+    admin:
+      name: Admin User
+      password: admin1234 # REPLACE_WITH_HASHED_PASSWORD
+    paul:
+      name: Paul K
+      password: paul # REPLACE_WITH_HASHED_PASSWORD
+
+cookie:
+  expiry_days: 7        # how long the login cookie lasts
+  key: your_secret_key  # change this to any random string
+  name: inventory_auth
+
+preauthorized:
+  emails: []

@@ -2,8 +2,11 @@ import streamlit as st
 import importlib
 from streamlit_option_menu import option_menu
 from constants import AppColours
+from login.auth import require_login
 
 st.set_page_config(layout="wide")
+if not require_login():
+    st.stop()
 
 # Initialize state
 st.session_state.setdefault("editing_row", None)
@@ -23,14 +26,12 @@ st.markdown("""
 
 PAGES = [
     {"name": "Products",     "icon": "house",        "module": "ui_pages.products_page"},
-    {"name": "Customers",    "icon": "list-task",     "module": "ui_pages.customer_page"},
-    {"name": "Sales Orders", "icon": "cloud-upload", "module": "ui_pages.sales_order_page"},    
-    {"name": "Reports",      "icon": "list-task",     "module": None},
-    {"name": "Settings",     "icon": "gear",          "module": None},
+    {"name": "Customers",    "icon": "person-fill",     "module": "ui_pages.customer_page"},
+    {"name": "Sales Orders", "icon": "box-seam", "module": "ui_pages.sales_order_page"},    
+    {"name": "Reports",      "icon": "bar-chart-line",     "module": "ui_pages.sales_report_page"},    
 ]
 
 PAGE_MODULES = {p["name"]: p["module"] for p in PAGES}
-
 
 def select_page(page):
     module_path = PAGE_MODULES.get(page)
@@ -40,10 +41,8 @@ def select_page(page):
     else:
         st.write(f"Selection changed to {page}")
 
-
 def on_change_menu_a(key):
     pass
-
 
 SIDEBAR_STYLES = {
     "container":         {

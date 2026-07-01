@@ -1,4 +1,5 @@
-from data.schema import TableSchema, ColumnDef
+#from data.schema import TableSchema, ColumnDef
+from streamlit_crud import TableSchema, ColumnDef
 
 SALES_ORDERS = TableSchema(
     table="sales_orders",

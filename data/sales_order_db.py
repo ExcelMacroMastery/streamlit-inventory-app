@@ -1,7 +1,9 @@
 import pandas as pd
 import streamlit as st
 from data.sales_order_schema import SALES_ORDERS, SALES_ORDER_LINES
-from data.database import get_connection
+from streamlit_crud import database as db
+#from constants import DB_PATH
+from data.connection import get_connection
 
 @st.cache_data
 def load_orders_data() -> pd.DataFrame:

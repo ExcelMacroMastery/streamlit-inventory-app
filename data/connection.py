@@ -1,7 +1,6 @@
 import sqlite3
 from contextlib import contextmanager
-
-DB_PATH = "inventory.sqlite"
+from constants import DB_PATH
 
 @contextmanager
 def get_connection():
