@@ -22,18 +22,32 @@ def require_login() -> bool:
     Returns True if the user is authenticated, False otherwise."""
     authenticator = load_authenticator()
 
-    authenticator.login()  # no arguments needed in newer version
-
+    # Already authenticated (e.g. via valid cookie) — just refresh state,
+    # no need for the centered form.
     if st.session_state.get("authentication_status"):
+        try:
+            authenticator.login()
+        except Exception as e:
+            st.error(f"Login widget error: {type(e).__name__}: {e}")
+
         with st.sidebar:
             st.markdown(f"👤 **{st.session_state.get('name')}**")
             authenticator.logout(location="sidebar")
         return True
 
-    elif st.session_state.get("authentication_status") is False:
-        st.error("Incorrect username or password.")
-        return False
+    # Not authenticated yet — render the form centered, and keep any
+    # status message inside the same column so it lines up under the box.
+    left, center, right = st.columns([1, 1, 1])
+    with center:
+        try:
+            authenticator.login()
+        except Exception as e:
+            st.error(f"Login widget error: {type(e).__name__}: {e}")
 
-    else:
-        st.info("Please enter your username and password.")
-        return False
+        # Check status again now that login() has run
+        if st.session_state.get("authentication_status") is False:
+            st.error("Incorrect username or password.")
+        elif not st.session_state.get("authentication_status"):
+            st.info("Please enter your username and password.")
+
+    return bool(st.session_state.get("authentication_status"))

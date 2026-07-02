@@ -1,8 +1,9 @@
 import streamlit as st
 import importlib
 from streamlit_option_menu import option_menu
-from constants import AppColours
 from login.auth import require_login
+from constants import AppColours
+
 
 st.set_page_config(layout="wide")
 if not require_login():
