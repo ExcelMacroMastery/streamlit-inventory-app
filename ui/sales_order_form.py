@@ -1,5 +1,5 @@
 import streamlit as st
-import data.customers_db as customers_db
+import data.suppliers_db as suppliers_db
 import data.sales_order_db as sales_order_db
 import data.products_db as products_db
 from data.sales_order_schema import TAX_RATE
@@ -37,7 +37,7 @@ def _remove_line(i: int):
 
 def _draw_customer_section() -> dict | None:
     st.subheader("Customer")
-    customers_df = customers_db.load_data()
+    customers_df = suppliers_db.load_data()
 
     if customers_df.empty:
         st.warning("No customers found. Add customers first.")
@@ -208,3 +208,4 @@ def render():
         if st.button("Clear"):
             _reset_state()
             st.rerun()
+

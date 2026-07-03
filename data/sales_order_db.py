@@ -2,8 +2,8 @@ import pandas as pd
 import streamlit as st
 from data.sales_order_schema import SALES_ORDERS, SALES_ORDER_LINES
 from streamlit_crud import database as db
-#from constants import DB_PATH
 from data.connection import get_connection
+from data.sales_report_db import load_sales_by_day, load_sales_by_category
 
 @st.cache_data
 def load_orders_data() -> pd.DataFrame:
@@ -49,6 +49,10 @@ def save_order(customer_id: int, lines: list[dict], subtotal: float, tax: float,
                 "UPDATE products SET quantity = quantity - ? WHERE id = ?",
                 (line["quantity"], line["product_id"])
             )
+
+        # Invalidate the cached report queries so charts reflect the new data
+        load_sales_by_day.clear()
+        load_sales_by_category.clear()
 
         return order_id
 

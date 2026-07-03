@@ -1,7 +1,7 @@
 import streamlit as st
 import importlib
 from streamlit_option_menu import option_menu
-from login.auth import require_login
+from login.auth import require_login, render_account_sidebar
 from constants import AppColours
 
 
@@ -60,6 +60,7 @@ SIDEBAR_STYLES = {
 }
 
 with st.sidebar:
+    render_account_sidebar()
     st.session_state.selected_page = option_menu(
         "Inventory",
         [p["name"] for p in PAGES],
