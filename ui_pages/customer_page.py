@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-import data.suppliers_db as suppliers_db
+import data.customers_db as customers_db
 from data.customers_schema import CUSTOMERS
 from business.models import compute_bucketed_column
 from streamlit_crud import draw_add_form 
@@ -17,7 +17,7 @@ def draw_action_buttons():
 def render():
     st.header("Customers")
     
-    df = suppliers_db.load_data()
+    df = customers_db.load_data()
 
     draw_action_buttons()
 
@@ -26,18 +26,18 @@ def render():
     if st.session_state.get("adding_row"):
         draw_add_form(
             schema=CUSTOMERS,
-            add_row=suppliers_db.add_row,
-            clear_cache=suppliers_db.load_data.clear,
+            add_row=customers_db.add_row,
+            clear_cache=customers_db.load_data.clear,
             title="Add Product",
         )          
 
     if st.session_state.get("editing_row") is not None:
         draw_edit_form(
             schema=CUSTOMERS,
-            update_row=suppliers_db.update_row,
-            delete_row=suppliers_db.delete_row,
-            clear_cache=suppliers_db.load_data.clear,
+            update_row=customers_db.update_row,
+            delete_row=customers_db.delete_row,
+            clear_cache=customers_db.load_data.clear,
             existing_row=st.session_state.editing_row,
-            title="Edit Customer",
+            title="Edit Product",
         )    
  
