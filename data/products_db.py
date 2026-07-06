@@ -4,9 +4,6 @@ from data.products_schema import PRODUCTS
 from streamlit_crud import database as db
 from constants import DB_PATH
 
-
-DB_PATH = "inventory.sqlite"
-
 @st.cache_data
 def load_data() -> pd.DataFrame:
     return db.load_data(PRODUCTS, DB_PATH)

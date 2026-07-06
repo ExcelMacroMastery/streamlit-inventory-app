@@ -28,7 +28,7 @@ def render():
             schema=CUSTOMERS,
             add_row=customers_db.add_row,
             clear_cache=customers_db.load_data.clear,
-            title="Add Product",
+            title="Add Customer",
         )          
 
     if st.session_state.get("editing_row") is not None:
@@ -38,6 +38,6 @@ def render():
             delete_row=customers_db.delete_row,
             clear_cache=customers_db.load_data.clear,
             existing_row=st.session_state.editing_row,
-            title="Edit Product",
+            title="Edit Customer",
         )    
  
