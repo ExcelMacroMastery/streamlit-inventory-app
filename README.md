@@ -1,4 +1,4 @@
-This Inventory Web App is an example of a real-wolrd style application using Python and Streamlit.
+This Inventory Web App is an example of a real-world style application using Python and Streamlit.
 
 **Prerequisites:**
 1. Code Editor(I use VS Studio)
